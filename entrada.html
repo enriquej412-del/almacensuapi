@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Entrada de Material - Formato de Almacen</title>
+  <title>Entrada de Materia prima - Formato de Almacen</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: Arial, Helvetica, sans-serif; background: #eef1f5; color: #1e2a3a; font-size: 11px; }
@@ -154,7 +154,7 @@
         </div>
 
         <div class="hdr-center">
-          <h1>Entrada de Material</h1>
+          <h1>Entrada de materia prima </h1>
           <p>Control de Almacen - Registro de Ingresos</p>
         </div>
         <div class="folio-area">
@@ -186,7 +186,7 @@
 
       <!-- TRANSPORTE -->
       <div class="sec">
-        <div class="sec-title">Transporte</div>
+        <div class="sec-title">Transporte (opcional)</div>
         <div class="fields c3">
           <div class="field"><label>Transportista</label><input type="text"></div>
           <div class="field"><label>Placas</label><input type="text"></div>
@@ -201,9 +201,9 @@
           <thead>
             <tr>
               <th style="width:4%">No.</th>
-              <th style="width:11%">Codigo</th>
+              <th style="width:9%">Codigo</th>
               <th style="width:28%">Descripcion del Material</th>
-              <th style="width:9%">Unidad</th>
+             
               <th style="width:10%">Cant. Solicit.</th>
               <th style="width:10%">Cant. Recibida</th>
               <th style="width:10%">P. Unit.</th>
@@ -212,14 +212,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td class="row-num">1</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td class="row-num">2</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td class="row-num">3</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td class="row-num">4</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td class="row-num">5</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td class="row-num">6</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td class="row-num">7</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td class="row-num">8</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td class="row-num">1</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td class="row-num">2</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td class="row-num">3</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td class="row-num">4</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td class="row-num">5</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td class="row-num">8</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
           </tbody>
         </table>
       </div>
@@ -229,7 +227,7 @@
         <div class="sec-title">Condiciones de Recepcion</div>
         <div class="fields c3">
           <div class="field"><label>Estado del Empaque</label><input type="text"></div>
-          <div class="field"><label>Coincide con O.C.</label><input type="text" placeholder="Si / No"></div>
+          <div class="field"><label>Coincide con Orden.Compra.</label><input type="text" placeholder="Si / No"></div>
           <div class="field"><label>Requiere Insp. Calidad</label><input type="text" placeholder="Si / No"></div>
         </div>
       </div>
@@ -237,7 +235,7 @@
       <!-- OBSERVACIONES -->
       <div class="obs">
         <label>Observaciones</label>
-        <textarea rows="2" placeholder="Escriba aqui sus observaciones..."></textarea>
+        <textarea rows="2" placeholder=""></textarea>
       </div>
 
       <!-- FIRMAS -->
