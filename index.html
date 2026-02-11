@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formatos de Almacen</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #eef1f5; color: #1e2a3a; min-height: 100vh;
+    }
+    .hub { max-width: 880px; margin: 0 auto; padding: 48px 24px 64px; }
+    .hub-header { text-align: center; margin-bottom: 44px; }
+    .hub-icon {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 68px; height: 68px; border-radius: 14px; background: #2b5a8c; color: #fff; margin-bottom: 18px;
+    }
+    .hub-title { font-size: 30px; font-weight: 700; color: #1e2a3a; margin: 0 0 8px; }
+    .hub-sub { font-size: 14px; color: #6b7a8d; max-width: 520px; margin: 0 auto; line-height: 1.5; }
+    .hub-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    @media (max-width: 640px) { .hub-grid { grid-template-columns: 1fr; } }
+    .card {
+      display: flex; flex-direction: column; padding: 24px 22px 20px;
+      background: #fff; border: 1px solid #d6dce5; border-radius: 10px;
+      text-decoration: none; color: inherit; position: relative; overflow: hidden;
+      transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--c); }
+    .card:hover { border-color: #b8c4d0; box-shadow: 0 6px 20px rgba(0,0,0,0.07); transform: translateY(-2px); }
+    .card-icon { color: var(--c); margin-bottom: 12px; }
+    .card h2 { font-size: 17px; font-weight: 700; margin: 0 0 6px; }
+    .card p { font-size: 12.5px; color: #6b7a8d; line-height: 1.5; margin: 0 0 14px; flex: 1; }
+    .card-link { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 600; color: var(--c); }
+    .card:hover .card-link svg { transform: translateX(3px); }
+    .card-link svg { transition: transform 0.15s; }
+    .badge {
+      display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 10px;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;
+      background: color-mix(in srgb, var(--c) 12%, transparent); color: var(--c);
+    }
+  </style>
+</head>
+<body>
+  <main class="hub">
+    <header class="hub-header">
+      <div class="hub-icon">
+        <svg width="36" height="36" viewBox="0 0 48 48" fill="none">
+          <rect x="4" y="20" width="40" height="24" rx="3" stroke="currentColor" stroke-width="2.5" fill="none"/>
+          <path d="M10 20V14a14 14 0 0128 0v6" stroke="currentColor" stroke-width="2.5" fill="none"/>
+          <rect x="12" y="28" width="8" height="8" rx="1" stroke="currentColor" stroke-width="2" fill="none"/>
+          <rect x="28" y="28" width="8" height="8" rx="1" stroke="currentColor" stroke-width="2" fill="none"/>
+        </svg>
+      </div>
+      <h1 class="hub-title">Formatos de Almacen</h1>
+      <p class="hub-sub">Selecciona el formato que necesitas. Cada documento se puede llenar en la computadora o imprimir para llenado a mano.</p>
+    </header>
+    <section class="hub-grid">
+      <a href="entrada.html" class="card" style="--c:#1b6b3a;">
+        <span class="badge">Ingreso</span>
+        <div class="card-icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="8" y="6" width="32" height="36" rx="3" stroke="currentColor" stroke-width="2" fill="none"/><path d="M16 18h16M16 24h16M16 30h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M30 38l4-4-4-4M20 34h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h2>Entrada de Material</h2>
+        <p>Registro de materiales que ingresan al almacen. Datos del proveedor, orden de compra y detalle de articulos recibidos.</p>
+        <span class="card-link">Abrir formato <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a href="salida.html" class="card" style="--c:#b74215;">
+        <span class="badge">Despacho</span>
+        <div class="card-icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="8" y="6" width="32" height="36" rx="3" stroke="currentColor" stroke-width="2" fill="none"/><path d="M16 18h16M16 24h16M16 30h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M38 34l-4 4 4 4M28 38h-14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h2>Salida de Material</h2>
+        <p>Control de materiales que salen del almacen. Registra destino, solicitante y detalle de articulos despachados.</p>
+        <span class="card-link">Abrir formato <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a href="vale.html" class="card" style="--c:#1a5276;">
+        <span class="badge">Solicitud</span>
+        <div class="card-icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="8" y="6" width="32" height="36" rx="3" stroke="currentColor" stroke-width="2" fill="none"/><path d="M16 14h16M16 20h16M16 26h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="34" cy="34" r="7" stroke="currentColor" stroke-width="2" fill="none"/><path d="M32 34l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h2>Vale de Almacen</h2>
+        <p>Solicitud formal para retirar material. Incluye autorizaciones, departamento solicitante y justificacion.</p>
+        <span class="card-link">Abrir formato <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <a href="kardex.html" class="card" style="--c:#6c3483;">
+        <span class="badge">Inventario</span>
+        <div class="card-icon"><svg width="40" height="40" viewBox="0 0 48 48" fill="none"><rect x="6" y="8" width="36" height="32" rx="3" stroke="currentColor" stroke-width="2" fill="none"/><path d="M6 16h36M6 24h36M6 32h36" stroke="currentColor" stroke-width="2"/><path d="M18 8v32M30 8v32" stroke="currentColor" stroke-width="2"/></svg></div>
+        <h2>Kardex de Inventario</h2>
+        <p>Tarjeta de control para registrar movimientos de entrada, salida y existencias de cada producto.</p>
+        <span class="card-link">Abrir formato <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+    </section>
+  </main>
+</body>
+</html>

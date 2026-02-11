@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kardex de Inventario - Formato de Almacen</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, Helvetica, sans-serif; background: #eef1f5; color: #1e2a3a; font-size: 11px; }
+
+    .page-wrapper { padding: 16px; }
+    .toolbar { max-width: 780px; margin: 0 auto 10px; display: flex; align-items: center; gap: 10px; }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 5px; padding: 6px 14px;
+      background: #fff; border: 1px solid #bcc7d3; border-radius: 6px;
+      font-size: 12px; font-weight: 600; color: #1e2a3a; cursor: pointer; text-decoration: none;
+    }
+    .btn-back:hover { background: #e8ecf1; }
+    .btn-print {
+      margin-left: auto; padding: 6px 16px; background: #6c3483; color: #fff;
+      border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;
+    }
+    .btn-print:hover { background: #562a6a; }
+
+    .paper {
+      max-width: 780px; margin: 0 auto; background: #fff;
+      border: 1px solid #c8d0da; border-radius: 6px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05); padding: 18px 24px 14px;
+    }
+
+    .hdr { display: flex; align-items: center; gap: 14px; padding-bottom: 8px; margin-bottom: 8px; border-bottom: 2px solid #6c3483; }
+    .logo-box {
+  width: 70px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logo-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+    .hdr-center { flex: 1; text-align: center; }
+    .hdr-center h1 { font-size: 15px; font-weight: 700; text-transform: uppercase; color: #6c3483; margin: 0; letter-spacing: 1px; }
+    .hdr-center p { font-size: 8px; color: #6b7a8d; margin: 2px 0 0; }
+    .folio-area { flex-shrink: 0; text-align: right; }
+    .folio-lbl { font-size: 7px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #6b7a8d; margin: 0 0 2px; }
+    .folio-input {
+      width: 80px; border: 1.5px solid #6c3483; border-radius: 4px; padding: 3px 6px;
+      font-size: 11px; font-weight: 700; text-align: center; font-family: inherit; color: #1e2a3a; background: #f8f0fc;
+    }
+
+    .sec { margin-bottom: 7px; }
+    .sec-title {
+      font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px;
+      padding: 2px 8px; border-radius: 3px; margin: 0 0 6px;
+      background: #f3e5f5; color: #6c3483; border-left: 3px solid #6c3483;
+    }
+
+    .fields { display: grid; gap: 4px 14px; }
+    .fields.c2 { grid-template-columns: 1fr 1fr; }
+    .fields.c3 { grid-template-columns: 1fr 1fr 1fr; }
+    .field { display: flex; flex-direction: column; gap: 1px; }
+    .field.fw { grid-column: 1 / -1; }
+    .field label { font-size: 7px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; color: #6b7a8d; }
+    .field input {
+      border: none; border-bottom: 1.2px dotted #a8b5c4; padding: 1px 3px;
+      font-size: 10px; font-family: inherit; color: #1e2a3a; background: transparent; outline: none; min-height: 16px;
+    }
+    .field input:focus { border-bottom-color: #6c3483; background: #f8f0fc; }
+
+    /* PRODUCT BOX */
+    .product-box {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4px 14px;
+      padding: 8px 10px; background: #fafbfc; border: 1px solid #e0e5ec; border-radius: 4px;
+    }
+
+    /* PARAMS */
+    .params { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 4px; }
+    .param-box { border: 1px solid #bcc7d3; border-radius: 4px; padding: 6px 8px; text-align: center; }
+    .param-lbl { font-size: 7px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; color: #6b7a8d; }
+    .param-input {
+      width: 100%; border: none; border-bottom: 1.2px dotted #a8b5c4; padding: 1px 2px;
+      font-size: 11px; font-weight: 600; text-align: center; font-family: inherit; color: #1e2a3a;
+      background: transparent; outline: none; margin-top: 3px;
+    }
+    .param-input:focus { background: #f8f0fc; border-bottom-color: #6c3483; }
+
+    .tbl { width: 100%; border-collapse: collapse; font-size: 9px; }
+    .tbl thead th {
+      padding: 3px 2px; font-size: 7px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.3px; text-align: center; border: 1px solid #bcc7d3;
+      background: #f3e5f5; color: #6c3483;
+    }
+    .tbl tbody td { border: 1px solid #d0d8e2; padding: 0; text-align: center; height: 18px; }
+    .tbl tbody tr:nth-child(even) { background: #fafbfc; }
+    .tbl input {
+      width: 100%; height: 100%; border: none; padding: 1px 2px;
+      font-size: 9px; font-family: inherit; text-align: center; background: transparent; outline: none; color: #1e2a3a;
+    }
+    .tbl input:focus { background: #f8f0fc; }
+
+    .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 6px; }
+    .sum-box { border: 1px solid #bcc7d3; border-radius: 4px; padding: 5px 8px; text-align: center; }
+    .sum-lbl { font-size: 7px; font-weight: 700; text-transform: uppercase; color: #6b7a8d; }
+    .sum-input {
+      width: 100%; border: none; border-bottom: 1.2px dotted #a8b5c4; padding: 1px 2px;
+      font-size: 10px; font-weight: 600; text-align: center; font-family: inherit; color: #1e2a3a;
+      background: transparent; outline: none; margin-top: 2px;
+    }
+    .sum-input:focus { background: #f8f0fc; border-bottom-color: #6c3483; }
+
+    .sigs { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 10px; padding-top: 6px; }
+    .sig { display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .sig-name {
+      width: 100%; border: none; border-bottom: 1.2px solid #1e2a3a;
+      text-align: center; font-size: 10px; font-family: inherit; padding: 12px 4px 2px; outline: none; color: #1e2a3a; background: transparent;
+    }
+    .sig-name:focus { background: #f8f0fc; }
+    .sig-lbl { font-size: 7px; font-weight: 700; text-transform: uppercase; color: #6b7a8d; margin-top: 3px; }
+
+    .ftr { margin-top: 6px; padding-top: 4px; border-top: 1px solid #dde3eb; display: flex; justify-content: space-between; font-size: 7px; color: #8899aa; }
+
+    @media print {
+      body { background: #fff !important; font-size: 9px; }
+      .page-wrapper { padding: 0; }
+      .toolbar { display: none !important; }
+      .paper { border: none; box-shadow: none; border-radius: 0; padding: 0; max-width: 100%; }
+      .field input:focus, .tbl input:focus, .param-input:focus, .sum-input:focus, .sig-name:focus { background: transparent; }
+      @page { size: letter landscape; margin: 8mm 10mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="toolbar">
+      <a href="index.html" class="btn-back">&#8592; Volver</a>
+      <button class="btn-print" onclick="window.print()">Imprimir</button>
+    </div>
+
+    <div class="paper">
+      <div class="hdr">
+        <div class="logo-box">
+          <img src="OIP.webp" alt="Logo Empresa">
+        </div>
+        <div class="hdr-center">
+          <h1>Kardex de Inventario</h1>
+          <p>Tarjeta de Control de Existencias</p>
+        </div>
+        <div class="folio-area">
+          <p class="folio-lbl">No. de Tarjeta</p>
+          <input type="text" class="folio-input" placeholder="0000">
+        </div>
+      </div>
+
+      <!-- DATOS DEL PRODUCTO -->
+      <div class="sec">
+        <div class="sec-title">Datos del Producto</div>
+        <div class="product-box">
+          <div class="field"><label>Nombre del Producto / Material</label><input type="text"></div>
+          <div class="field"><label>Codigo / SKU</label><input type="text"></div>
+          <div class="field"><label>Categoria / Familia</label><input type="text"></div>
+          <div class="field"><label>Unidad de Medida</label><input type="text"></div>
+          <div class="field"><label>Ubicacion (Rack / Estante / Nivel)</label><input type="text"></div>
+          <div class="field"><label>Proveedor Principal</label><input type="text"></div>
+        </div>
+      </div>
+
+      <!-- PARAMETROS -->
+      <div class="sec">
+        <div class="sec-title">Parametros de Inventario</div>
+        <div class="params">
+          <div class="param-box"><div class="param-lbl">Stock Minimo</div><input type="text" class="param-input"></div>
+          <div class="param-box"><div class="param-lbl">Stock Maximo</div><input type="text" class="param-input"></div>
+          <div class="param-box"><div class="param-lbl">Punto de Reorden</div><input type="text" class="param-input"></div>
+          <div class="param-box"><div class="param-lbl">Existencia Inicial</div><input type="text" class="param-input"></div>
+        </div>
+      </div>
+
+      <!-- TABLA DE MOVIMIENTOS -->
+      <div class="sec">
+        <div class="sec-title">Registro de Movimientos</div>
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th style="width:10%">Fecha</th>
+              <th style="width:9%">No. Doc.</th>
+              <th style="width:17%">Concepto / Referencia</th>
+              <th style="width:8%">Entrada</th>
+              <th style="width:8%">Salida</th>
+              <th style="width:9%">Existencia</th>
+              <th style="width:9%">C. Unit.</th>
+              <th style="width:9%">C. Prom.</th>
+              <th style="width:11%">Saldo</th>
+              <th style="width:10%">Obs.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+            <tr><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- RESUMEN -->
+      <div class="sec">
+        <div class="sec-title">Resumen del Periodo</div>
+        <div class="summary">
+          <div class="sum-box"><div class="sum-lbl">Total Entradas</div><input type="text" class="sum-input"></div>
+          <div class="sum-box"><div class="sum-lbl">Total Salidas</div><input type="text" class="sum-input"></div>
+          <div class="sum-box"><div class="sum-lbl">Existencia Final</div><input type="text" class="sum-input"></div>
+          <div class="sum-box"><div class="sum-lbl">Valor del Inventario</div><input type="text" class="sum-input"></div>
+        </div>
+      </div>
+
+      <!-- FIRMAS -->
+      <div class="sigs">
+        <div class="sig"><input type="text" class="sig-name"><span class="sig-lbl">Elaboro (Almacenista)</span></div>
+        <div class="sig"><input type="text" class="sig-name"><span class="sig-lbl">Reviso (Jefe de Almacen)</span></div>
+      </div>
+
+      <div class="ftr">
+        <span>Formato: ALM-KDX-001 | Rev. 01</span>
+        <span>Fecha de vigencia: ___/___/______</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
